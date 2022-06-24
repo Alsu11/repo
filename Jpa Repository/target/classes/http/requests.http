@@ -1,0 +1,19 @@
+GET http://localhost:8080/users?name=Alsu
+
+###
+
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "maker" : "Json",
+  "price": "10"
+}
+
+###
+
+GET http://localhost:8080/orders?userId=1
+
+###
+
+GET http://localhost:8080/products?productId=1

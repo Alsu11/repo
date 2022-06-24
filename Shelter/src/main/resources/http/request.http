@@ -1,0 +1,66 @@
+### Регистрация
+POST localhost/sign-up
+Content-Type: application/json
+
+{
+  "email" : "rt@gmail.com",
+  "password" : "1000",
+  "firstName" : "Alsu",
+  "lastName" : "Yumadilova"
+}
+
+### Подтвирждение кода
+GET localhost/sign-up/confirm/b22440f7-5aeb-4898-8572-3fe0da53862a
+
+
+### Вход
+POST localhost/sign-in
+Content-Type: application/json
+
+{
+  "email": "rt@gmail.com",
+  "password" : "1000"
+}
+
+
+### Выход
+GET localhost/logout
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMSIsInJvbGUiOiJVU0VSIiwic3RhdGUiOiJDT05GSVJNRUQiLCJleHAiOjE2NTQ1OTUzODAsImVtYWlsIjoicnRAZ21haWwuY29tIn0.hRnr1ipl_P41kOth0Wm2Vg0s4-6COd6qDCxU98ukaPY
+
+
+### Добавление определенного кота в определенный приют
+PUT localhost/cats/add-to-shelter
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMSIsInJvbGUiOiJVU0VSIiwic3RhdGUiOiJDT05GSVJNRUQiLCJleHAiOjE2NTQ1OTUzODAsImVtYWlsIjoicnRAZ21haWwuY29tIn0.hRnr1ipl_P41kOth0Wm2Vg0s4-6COd6qDCxU98ukaPY
+
+{
+  "name" : "Ser",
+  "age" : 5,
+  "shelterId" : 1
+}
+
+
+### Получение всех котов с пагинацией и сортировкой
+GET localhost/cats/get-all?page=0
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMSIsInJvbGUiOiJVU0VSIiwic3RhdGUiOiJDT05GSVJNRUQiLCJleHAiOjE2NTQ1OTUzODAsImVtYWlsIjoicnRAZ21haWwuY29tIn0.hRnr1ipl_P41kOth0Wm2Vg0s4-6COd6qDCxU98ukaPY
+
+### Удаление кота
+DELETE localhost/cats/go-on/2
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMSIsInJvbGUiOiJVU0VSIiwic3RhdGUiOiJDT05GSVJNRUQiLCJleHAiOjE2NTQ1OTUzODAsImVtYWlsIjoicnRAZ21haWwuY29tIn0.hRnr1ipl_P41kOth0Wm2Vg0s4-6COd6qDCxU98ukaPY
+
+
+### Обновление определенного кота
+PUT localhost/cats/update
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMCIsInJvbGUiOiJVU0VSIiwic3RhdGUiOiJDT05GSVJNRUQiLCJleHAiOjE2NTQ1OTUwOTUsImVtYWlsIjoiZGFAZ21haWwuY29tIn0.-aNQoMxJmPtgK4IXYrHby65e5O8COq4vxv-Y2mSPlgk
+
+{
+  "health" : "HEALTH",
+  "state" : "ON_SHELTER",
+  "catId" : 3
+}
+
+
+### Получение списка приютов
+GET localhost/shelter/get-all
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMSIsInJvbGUiOiJVU0VSIiwic3RhdGUiOiJDT05GSVJNRUQiLCJleHAiOjE2NTQ1OTUzODAsImVtYWlsIjoicnRAZ21haWwuY29tIn0.hRnr1ipl_P41kOth0Wm2Vg0s4-6COd6qDCxU98ukaPY
