@@ -1,0 +1,5 @@
+rootProject.name = 'GoldApple'
+include 'goldapple-api'
+include 'goldapple-db'
+include 'goldapple-impl'
+

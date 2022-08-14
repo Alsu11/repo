@@ -1,0 +1,184 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="001" author="GoldApple">
+        <createTable tableName="users">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_user_email"/>
+            </column>
+            <column name="phone_number" type="VARCHAR(12)"/>
+            <column name="hash_password" type="VARCHAR(600)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount" type="int"/>
+            <column name="avatar_id" type="uuid"/>
+        </createTable>
+
+        <createTable tableName="shop_address">
+            <column name="id" type="uuid"
+                    defaultValueComputed="md5(random()::text || clock_timestamp()::text)::uuid">
+                <constraints primaryKey="true" primaryKeyName="pk_shop_address"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()"/>
+            <column name="address" type="VARCHAR(255)"/>
+        </createTable>
+
+
+        <createTable tableName="orders">
+            <column name="id" type="uuid"
+                defaultValueComputed="md5(random()::text || clock_timestamp()::text)::uuid">
+                <constraints primaryKey="true" primaryKeyName="pk_order"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()"/>
+            <column name="amount" type="int"/>
+            <column name="user_id" type="uuid">
+                <constraints foreignKeyName="orders_id_user_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+            <column name="address_id" type="uuid">
+                <constraints foreignKeyName="orders_id_address_id"
+                                 referencedTableName="shop_address"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="products">
+            <column name="id" type="uuid"
+                    defaultValueComputed="md5(random()::text || clock_timestamp()::text)::uuid">
+                <constraints primaryKey="true" primaryKeyName="pk_product"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="category" type="VARCHAR(255)"/>
+            <column name="maker" type="VARCHAR(255)"/>
+            <column name="vendor_code" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_vendor_code"/>
+            </column>
+            <column name="price" type="VARCHAR"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="discount" type="integer"/>
+            <column name="picture_id" type="uuid"/>
+        </createTable>
+
+        <createTable tableName="liked">
+            <column name="id" type="uuid"
+                    defaultValueComputed="md5(random()::text || clock_timestamp()::text)::uuid">
+                <constraints primaryKey="true" primaryKeyName="pk_liked"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()"/>
+            <column name="user_id" type="uuid">
+                <constraints foreignKeyName="liked_user_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+            <column name="product_id" type="uuid">
+                <constraints foreignKeyName="liked_product_id"
+                                 referencedTableName="products"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="basket">
+            <column name="id" type="uuid"
+                    defaultValueComputed="md5(random()::text || clock_timestamp()::text)::uuid">
+                <constraints primaryKey="true" primaryKeyName="pk_basket"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()"/>
+            <column name="user_id" type="uuid">
+                <constraints foreignKeyName="basket_user_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+            <column name="product_id" type="uuid">
+                <constraints foreignKeyName="basket_products_id"
+                                 referencedTableName="products"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="cards">
+            <column name="id" type="uuid"
+                    defaultValueComputed="md5(random()::text || clock_timestamp()::text)::uuid">
+                <constraints primaryKey="true" primaryKeyName="pk_card"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()"/>
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_user_name"/>
+            </column>
+            <column name="expiration" type="VARCHAR(255)">
+                <constraints nullable="false" uniqueConstraintName="uk_expiration"/>
+            </column>
+            <column name="number" type="VARCHAR(16)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="uk_number"/>
+            </column>
+            <column name="user_id" type="uuid">
+                <constraints foreignKeyName="cards_user_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+            <column name="cvv" type="VARCHAR(3)"/>
+        </createTable>
+
+        <createTable tableName="support">
+            <column name="id" type="uuid"
+                    defaultValueComputed="md5(random()::text || clock_timestamp()::text)::uuid">
+                <constraints primaryKey="true" primaryKeyName="pk_support"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()"/>
+            <column name="message" type="VARCHAR(255)"/>
+            <column name="user_id" type="uuid">
+                <constraints foreignKeyName="support_user_id"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="order_product">
+            <column name="id" type="uuid"
+                    defaultValueComputed="md5(random()::text || clock_timestamp()::text)::uuid">
+                <constraints primaryKey="true" primaryKeyName="pk_order_product"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP WITHOUT TIME ZONE" defaultValueComputed="NOW()"/>
+            <column name="order_id" type="uuid">
+                <constraints foreignKeyName="order_product_orders_id"
+                                 referencedTableName="orders"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+            <column name="product_id" type="uuid">
+                <constraints foreignKeyName="order_product_products_id"
+                                 referencedTableName="products"
+                                 referencedColumnNames="id"
+                                 initiallyDeferred="false"
+                                 deleteCascade="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

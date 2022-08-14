@@ -1,0 +1,61 @@
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(JavaCompile){
+    options.encoding = 'UTF-8'
+}
+
+allprojects {
+    group = 'ru.itis'
+    version = '1.0-SNAPSHOT'
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+subprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'war'
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    jar.archiveFileName = "${project.name}.jar"
+    war.archiveFileName = "${project.name}.war"
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    dependencies {
+        implementation group: 'org.springframework', name: 'spring-core', version: '5.3.18'
+        implementation 'org.springframework:spring-context-support:5.3.16'
+        implementation 'org.springframework:spring-webmvc:5.3.16'
+        implementation 'org.springframework:spring-context:5.3.16'
+        implementation 'org.springframework.data:spring-data-jpa:2.6.2'
+        implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2'
+        implementation 'com.fasterxml.jackson.core:jackson-core:2.13.2'
+        implementation 'org.springframework:spring-jdbc:5.3.16'
+        implementation 'com.zaxxer:HikariCP:5.0.1'
+        implementation 'org.postgresql:postgresql:42.3.3'
+        implementation "org.reflections:reflections:0.9.12"
+        compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+        compileOnly 'org.projectlombok:lombok:1.18.22'
+        annotationProcessor 'org.projectlombok:lombok:1.18.22'
+        implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.2.3.Final'
+        implementation group: 'org.mongodb', name: 'mongodb-driver-sync', version: '4.5.1'
+        implementation group: 'org.springframework.data', name: 'spring-data-mongodb', version: '3.3.3'
+        implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.31'
+        implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.4'
+        implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+    }
+}
+
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
