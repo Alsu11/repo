@@ -44,7 +44,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             } else if (tokenHeader.startsWith("Bearer ")) {
                 String token = tokenHeader.substring("Bearer ".length());
 
-                if(blackListRepository.exists(token)) {
+                if (blackListRepository.exists(token)) {
                     logger.warn("Token in blackList");
                     filterChain.doFilter(request, response);
                 }
