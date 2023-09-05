@@ -1,0 +1,36 @@
+basePath: /
+host: localhost:3000
+info:
+  contact: {}
+  description: Lets get products!!!)
+  termsOfService: http://swagger.io/terms/
+  title: Fiber Swagger Example API
+  version: "2.0"
+paths:
+  /products:
+    get:
+      description: Returns the list of the products
+      produces:
+      - application/json
+      responses: {}
+      summary: Get all products
+      tags:
+      - products
+  /products/{productId}:
+    get:
+      description: Returns the product by id
+      parameters:
+      - description: Product ID
+        in: path
+        name: productId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Get product by id
+      tags:
+      - products
+schemes:
+- http
+swagger: "2.0"

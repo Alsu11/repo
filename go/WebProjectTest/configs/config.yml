@@ -1,0 +1,7 @@
+http:
+  port:
+    8080
+mongo:
+  database:
+    name: golang_4_project
+    uri: mongodb://localhost:27017
