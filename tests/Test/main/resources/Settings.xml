@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Data xmlns="http://www.w3.org/2001/XMLSchema-instance">
+    <baseUrl id="1">
+        <baseUrl>https://jut.su/</baseUrl>
+    </baseUrl>
+    <login id="2">
+        <login>PoshKamil</login>
+    </login>
+    <password id="3">
+        <password>danisdanis</password>
+    </password>
+</Data>
