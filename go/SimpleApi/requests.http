@@ -1,5 +1,0 @@
-GET localhost:3000/products
-
-###
-
-GET localhost:3000/products/2

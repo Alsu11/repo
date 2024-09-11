@@ -1,7 +1,0 @@
-http:
-  port:
-    8080
-mongo:
-  database:
-    name: productsDb
-    uri: mongodb://localhost:27017
